@@ -1,0 +1,13 @@
+{#
+ # Different types of content for magazine articles and the like
+ #}
+
+{% if entry.article|length %}
+    {# {% cache %} #}
+
+        {% for block in entry.article %}
+            {% include 'matrix/article/_' ~ block.type %}
+        {% endfor %}
+
+    {# {% endcache %} #}
+{% endif %}

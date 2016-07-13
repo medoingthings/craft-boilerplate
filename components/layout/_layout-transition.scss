@@ -1,0 +1,36 @@
+/**
+ * Layout transition loads content via ajax and smoothly transitions
+ * to the new content
+ */
+@keyframes layout-transition--animate-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes layout-transition--animate-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.layout-transition--animate-out #main > * {
+    animation: layout-transition--animate-out 0.7s $base-transition--faster forwards;
+}
+
+.layout-transition--animate-in #main > * {
+    opacity: 0;
+    animation: layout-transition--animate-in 0.7s $base-transition--faster;
+}
+
+#layout-transition {
+    overflow: hidden;
+}

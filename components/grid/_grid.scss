@@ -1,0 +1,30 @@
+$susy: (
+    columns: 12,
+    gutters: .6,
+    gutter-position: after,
+    global-box-sizing: border-box
+);
+
+$grid-container-margin--desktop: 7%;
+$grid-container-margin--mobile: 4%;
+$grid-container-max-width: 1160px;
+$grid-container-breakpoint-max: 1280px;
+$grid-container-breakpoint-mid: $base-breakpoint--landscape-min;
+$grid-container-breakpoint-min: $base-breakpoint--portrait-max;
+
+/**
+ * Outer container to obey the grid system for child elements
+ */
+@mixin grid-container {
+    @include container($grid-container-max-width);
+
+    @include breakpoint($grid-container-breakpoint-mid, $grid-container-breakpoint-max) {
+        margin-left: $grid-container-margin--desktop;
+        margin-right: $grid-container-margin--desktop;
+    }
+
+    @include breakpoint(0, $grid-container-breakpoint-min) {
+        margin-left: $grid-container-margin--mobile;
+        margin-right: $grid-container-margin--mobile;
+    }
+}

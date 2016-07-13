@@ -1,0 +1,25 @@
+<div class="richtext__container _aqua-background">
+    <div class="richtext__wrapper">
+
+        <blockquote class="richtext__quote"{% if block.sourceUrl %}cite="{{ block.sourceUrl }}"{% endif %}>
+            <p>{{ block.quote }}</p>
+
+            {% if block.source %}
+                <cite>
+                    {% if block.sourceUrl %}
+                        {% set url = block.sourceUrl %}
+                        {% if 'http' not in url %}
+                            {% set url = 'http://' ~ url %}
+                        {% endif %}
+
+                        <a href="{{ url }}" class="richtext__quote__link" target="_blank">
+                    {% endif %}
+                          {{ block.source|default(block.sourceUrl) }}
+                    {% if block.sourceUrl %}
+                        </a>
+                    {% endif %}
+                </cite>
+            {% endif %}
+        </blockquote>
+    </div>
+</div>

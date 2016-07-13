@@ -1,0 +1,7 @@
+cms/craft/app
+cms/craft/storage
+cms/craft/config/db.php
+cms/craft/config/license.key
+cms/public/assets
+cms/public/dist
+node_modules

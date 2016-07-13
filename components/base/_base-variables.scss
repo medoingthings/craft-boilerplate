@@ -1,0 +1,64 @@
+/**
+ * Variables Used Across The Entire Project
+ * (alphabetical order)
+ */
+
+// Global Breakpoints
+$base-breakpoint--widescreen-min: 1400px;
+$base-breakpoint--desktop-min: 1000px;
+$base-breakpoint--landscape-min: 650px;
+$base-breakpoint--portrait-min: 480px;
+$base-breakpoint--mobile-min: 0;
+
+$base-breakpoint--desktop-max: $base-breakpoint--widescreen-min - 1;
+$base-breakpoint--landscape-max: $base-breakpoint--desktop-min - 1;
+$base-breakpoint--portrait-max: $base-breakpoint--landscape-min - 1;
+$base-breakpoint--mobile-max: $base-breakpoint--portrait-min - 1;
+
+// Border stuff
+$base-border-radius: 5px;
+
+// Color theme
+$base-color-black: #000;
+$base-color-coal: #1a1a1a;
+$base-color-blue: #00b2eb;
+$base-color-dark-blue: #0097c7;
+$base-color-white: #fff;
+
+// Global color definitions
+$base-color-body-background: $base-color-white;
+$base-color-body-text: $base-color-coal;
+$base-color-tap-highlight: rgba(0, 0, 0, 0.25);
+$base-color-error: #eb0000;
+
+// Typography
+$base-font-family--serif: Georgia, serif;
+$base-font-family--sans: Helvetica, Arial, sans-serif;
+
+$base-font-size--desktop: 18px;
+$base-font-size--tablet: 16px;
+
+// Path
+$base-path--icons: '/dist/assets/icons/';
+$base-path--images: '/dist/assets/images/';
+
+// Spacing
+$base-space: 20px;
+$base-space--large-desktop: 120px;
+$base-space--large-mobile: 80px;
+$base-space--paragraph: 15px;
+
+// Transition Speeds
+$base-transition--lightspeed: 50ms;
+$base-transition--faster: 150ms;
+$base-transition--fast: 300ms;
+$base-transition--medium: 500ms;
+$base-transition--long: 1000ms;
+
+// z-index layers
+$base-z-index--overlay-level-2: 5;
+$base-z-index--overlay-level-1: 4;
+$base-z-index--above-content: 3;
+$base-z-index--content-level-2: 2;
+$base-z-index--content-level-1: 1;
+$base-z-index--content: 0;

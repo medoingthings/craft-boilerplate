@@ -1,0 +1,51 @@
+/**
+ * Base Styles and Commonly Used Classes
+ */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-tap-highlight-color: $base-color-tap-highlight;
+}
+
+body {
+    position: relative;
+    background-color: $base-color-body-background;
+    color: $base-color-body-text;
+
+    // Prevent horizontal scrolling
+    overflow-x: hidden;
+}
+
+figure {
+    margin: 0;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.no-js picture img[srcset] {
+    display: none;
+}
+
+/**
+ * IMPORTANT: Please don’t use any element styles (e.g. styling lists or
+ *            paragraphs without the scope of a components class).
+ *            Chances are that you will have to reset them in different
+ *            components. The navigation for example needs unstyled lists while
+ *            lists within richtext areas need a list style.
+ *
+ *            Styling elements without the scope of a component class leads to
+ *            regression bugs as the project evolves. So let’s don’t do that.
+ *
+ * Take away: Only style elements with the scope of a component class. E.g. .richtext p {}
+ *            Even better: don’t style elements at all. Just use classes wherever possible.
+ *
+ * Read more: http://medoingthings.com/writing/2015/05/css-styling-html-elements-is-a-trap
+ */

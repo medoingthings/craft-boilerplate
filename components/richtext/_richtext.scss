@@ -1,0 +1,37 @@
+/**
+ * Richtext elements
+ */
+
+.richtext__content {
+    // Important: Don’t add any styles to .richtext__content itself.
+    //            it’s just the namespace to style richtext elements so that
+    //            they can be added in different contexts
+
+    h2 {
+        @extend %base-text-type--1;
+        margin-bottom: rem(24px);
+    }
+
+    p {
+        margin-bottom: $base-space--paragraph;
+    }
+
+    a {
+        font-weight: bold;
+        transition: color $base-transition--faster;
+
+        &:link,
+        &:visited {
+            color: $base-color-blue;
+        }
+
+        &:hover,
+        &:focus {
+            color: $base-color-dark-blue;
+        }
+
+        > span {
+            font-weight: normal;
+        }
+    }
+}

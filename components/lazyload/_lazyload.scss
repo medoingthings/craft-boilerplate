@@ -1,0 +1,15 @@
+/**
+ * Used by the lazysizes plugin which lazyloads images
+ *
+ * Ease images in, once loaded
+ */
+
+.lazyload,
+.lazyloading {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+    transition: opacity $base-transition--long;
+}

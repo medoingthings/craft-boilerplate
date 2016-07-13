@@ -1,0 +1,70 @@
+/**
+ * Icon Font
+ * Use https://icomoon.io/app to create and update the icon font.
+ * Save it in assets/icons. Don’t forget to save the selection.json, too. It
+ * ensures that you or any other developer can update the font.
+ */
+
+// Update this hash after every change to the iconfont
+$base-icons--cache-hash: 'w417qd';
+
+// List of all available icons – needs to be in sync with the Icomoon file
+$base-icons--list: (
+    octoface: '\e900'
+);
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('#{$base-path--icons}iconfont.eot?#{$base-icons--cache-hash}');
+    src: url('#{$base-path--icons}iconfont.eot?#iefix-#{$base-icons--cache-hash}') format('embedded-opentype'),
+    url('#{$base-path--icons}iconfont.woff?#{$base-icons--cache-hash}') format('woff'),
+    url('#{$base-path--icons}iconfont.ttf?#{$base-icons--cache-hash}') format('truetype'),
+    url('#{$base-path--icons}iconfont.svg?#{$base-icons--cache-hash}#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/**
+ * Setup basic icons styles to be able to set a glyph
+ */
+%base-icons-style {
+    font-family: 'iconfont';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Set an icon to the current elements pseudo element
+ * @param {string} $iconname Key within the icon map
+ * @param {string} $font-size Font size the icon should have. Use em, so that
+ *                            it adapts, if the parent font size changes
+ * @param {string} $target Which pseudo element should the icon sit on
+ *
+ * Example usage:
+ *                .button-close {
+ *                  @include icon(close)
+ *                }
+ */
+@mixin base-icon($iconname, $font-size: false, $target: before) {
+    &:#{$target} {
+        @extend %base-icons-style;
+        content: map-get($base-icons--list, $iconname);
+
+        @if ($font-size) {
+            font-size: $font-size;
+        }
+    }
+}
+
+/**
+ * Only set the icon name. Useful, if the basic icon styles are already inherited
+ */
+@mixin base-icon-glyph($iconname) {
+    content: map-get($base-icons--list, $iconname);
+}

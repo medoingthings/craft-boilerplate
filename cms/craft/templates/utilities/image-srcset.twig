@@ -1,0 +1,55 @@
+{#
+ # Outputs an image with a srcset attribute for responsive images
+ #
+ # Example usage:
+ # <figure>
+ #     {% include 'utilities/image-srcset' with {
+ #         imageModel: entry.image.first,
+ #         aspect: '16/9',
+ #         widths: [400, 800, 1000, 1200, 1400]
+ #     } %}
+ # </figure>
+ #}
+
+{% set srcset = [] %}
+{% set altText = imageModel.title %}
+
+{% set aspect = aspect is defined ? aspect : null %}
+{% set aspectRatio = 1 %}
+
+{# Calculate the aspect ratio #}
+{% if '/' in aspect %}
+    {% set aspect = aspect|split('/') %}
+    {% set aspectRatio = aspect[0] / aspect[1] %}
+{% endif %}
+
+{% set fallbackImageUrl = '' %}
+
+{# Create a srcset item for each width #}
+{% for width in widths %}
+
+    {# Use the images height if no aspect ratio is given #}
+    {% set height = aspect ? (width / aspectRatio)|round : null %}
+
+    {% set transform = {
+        mode: 'crop',
+        width: width,
+        height: height,
+        position: 'center-center',
+        imageFormat: 'jpg'
+    } %}
+
+    {# Create srcset item #}
+    {% set srcItem = imageModel.getUrl(transform) ~ ' ' ~ width ~ 'w' %}
+
+    {# Add it to the set #}
+    {% set srcset = srcset|merge([srcItem]) %}
+
+    {% if loop.first %}
+        {% set fallbackImageUrl = imageModel.getUrl(transform) %}
+    {% endif %}
+
+{% endfor %}
+
+<noscript><img src="{{ fallbackImageUrl }}"></noscript>
+<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{ srcset|join(', ') }}" data-sizes="auto" class="lazyload" alt="{{ altText }}">

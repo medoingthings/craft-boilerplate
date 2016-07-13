@@ -1,0 +1,18 @@
+<article class="richtext__container">
+    <div class="richtext__wrapper">
+
+        <div class="richtext__content__wrapper">
+            <div class="richtext__content">
+
+                {% include 'partials/text-image' with {
+                    imageModel: block.image.first,
+                    imagePosition: block.imagePosition,
+                    content: block.text,
+                    caption: block.caption
+                } %}
+
+            </div>
+        </div>
+
+    </div>
+</article>

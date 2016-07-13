@@ -1,0 +1,31 @@
+{
+  "name": "craft-boilerplate",
+  "version": "0.9.0",
+  "description": "A boilerplate with all the tools set up to hit the ground running on new projects.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "gulp build:production"
+  },
+  "author": "Mark Rickert <mark@medoingthings.com>",
+  "engines": {
+    "node": "^4.1.1",
+    "npm": "^2.14.4"
+  },
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^2.12.1",
+    "exports-loader": "^0.6.3",
+    "fastclick": "^1.0.6",
+    "gsap": "^1.18.4",
+    "gulp": "^3.9.1",
+    "gulp-workflow": "git://github.com/medoingthings/gulp-workflow.git#master",
+    "imports-loader": "^0.6.5",
+    "jquery": "^1.12.0",
+    "lazysizes": "^1.5.0",
+    "normalize.css": "^4.1.1",
+    "picturefill": "^3.0.2",
+    "smooth-scroll": "cferdinandi/smooth-scroll",
+    "smoothstate": "git://github.com/miguel-perez/smoothState.js.git#a2157aeb4",
+    "susy": "^2.2.12"
+  }
+}

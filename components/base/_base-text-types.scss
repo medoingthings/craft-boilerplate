@@ -1,0 +1,52 @@
+/**
+ * Typography Text Types
+ *
+ * Definition of all typographic styles that are available
+ * across the project. Just extend wherever you need them.
+ *
+ * Consolidate all of the text types here, with the help of the designer in charge.
+ *
+ * Example usage:
+ *
+ * .richtext h2 {
+ *     @extend %base-text-type--example;
+ *     margin-bottom: $base-space;
+ * }
+ */
+
+// Baseline text type
+%base-text-type--text {
+    font-family: $base-font-family--sans;
+    font-weight: normal;
+
+    @include breakpoint($base-breakpoint--desktop-min) {
+        font-size: $base-font-size--desktop;
+        line-height: (32 / strip-unit($base-font-size--desktop)); // [Intended lineheight] / [font size]
+    }
+
+    @include breakpoint(0, $base-breakpoint--landscape-max) {
+        font-size: $base-font-size--tablet;
+        line-height: (26 / strip-unit($base-font-size--tablet)); // [Intended lineheight] / [font size]
+    }
+}
+
+%base-text-type--1 {
+    font-family: $base-font-family--sans;
+    font-weight: bold;
+    word-wrap: break-word;
+
+    @include breakpoint($base-breakpoint--desktop-min) {
+        font-size: 100px;
+        line-height: (100 / 100); // [Intended lineheight] / [font size]
+    }
+
+    @include breakpoint($base-breakpoint--landscape-min, $base-breakpoint--landscape-max) {
+        font-size: 58px;
+        line-height: (68 / 58); // [Intended lineheight] / [font size]
+    }
+
+    @include breakpoint(0, $base-breakpoint--portrait-max) {
+        font-size: 40px;
+        line-height: (48 / 40); // [Intended lineheight] / [font size]
+    }
+}

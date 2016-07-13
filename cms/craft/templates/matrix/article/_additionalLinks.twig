@@ -1,0 +1,60 @@
+{#
+ # Outputs a set of given links (internal, external, download)
+ #}
+<div class="richtext__container">
+    <div class="richtext__wrapper">
+
+        <div class="richtext__content__wrapper">
+            {% set defaultHeadline = 'magazine.contextLinks.headline'|translate %}
+
+            <h2 class="richtext__headline">{{ block.headline|default(defaultHeadline) }}</h2>
+
+            <ul class="richtext__linklist richtext__content">
+                {% for linkModel in block.links.linksTable %}
+                    {% set linkTextAppend = '' %}
+                    {% set linkClassAppend = '' %}
+                    {% set openNewTab = false %}
+
+                    {% set linkurl = linkModel.linkTarget %}
+                    {% set linkText = linkModel.linktext %}
+
+                    {# Linkurl not text? Call for the url in the object. #}
+                    {% if linkurl is iterable %}
+                        {% set linkText = linkText is not empty ? linkText : linkurl.first.title %}
+                        {% set linkurl = linkurl.first.url %}
+                    {% endif %}
+
+                    {# Add protocoll if missing #}
+                    {% if linkModel.type == 'external' %}
+                        {% set linkText = linkText is not empty ? linkText : linkurl %}
+
+                        {% if 'http' not in linkurl %}
+                            {% set linkurl = 'http://' ~ linkurl %}
+                        {% endif %}
+
+                    {% endif %}
+
+                    {# Gather file information #}
+                    {% if linkModel.type == 'download' %}
+                        {% set file = linkModel.linkTarget.first %}
+                        {% set fileType = file.kind == 'compressed' ? 'zip' : file.kind %}
+                        {% set fileSize = file.size|filesize %}
+                        {% set fileInfo = fileType ~ ', ' ~ fileSize %}
+
+                        {% set linkClassAppend = linkClassAppend ~ ' _download' %}
+                        {% set linkTextAppend = linkTextAppend ~ ' (' ~ fileInfo ~ ')' %}
+                    {% endif %}
+
+                    {# Open externak links in new tab #}
+                    {% if siteUrl not in linkurl or linkModel.type == 'download' %}
+                        {% set openNewTab = true %}
+                    {% endif %}
+
+
+                    <li><a href="{{ linkurl }}" class="{{ linkClassAppend }}"{% if openNewTab %} target="_blank"{% endif %}>{{ linkText }}<span>{{ linkTextAppend }}</span></a></li>
+
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

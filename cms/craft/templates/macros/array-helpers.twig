@@ -1,0 +1,19 @@
+{#
+ # Converts an array to a comma seperated string where each item is unique
+ #
+ # @param {array} array
+ #}
+
+{% macro arrayToCsv(array) %}
+{% spaceless %}
+    {% set list = [] %}
+
+    {% for item in array %}
+        {% if item is not empty and item not in list %}
+            {% set list = list|merge([item]) %}
+        {% endif %}
+    {% endfor %}
+
+    {{ list|join(', ') }}
+{% endspaceless %}
+{% endmacro %}

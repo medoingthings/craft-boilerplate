@@ -1,0 +1,5 @@
+{
+  "buttons": ["format", "inlinestyle","bold","lists","link","properties"],
+  "plugins": ["source","fullscreen","inlinestyle","properties"],
+  "formatting":["p", "h2", "h3"]
+}

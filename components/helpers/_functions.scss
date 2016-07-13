@@ -1,0 +1,44 @@
+/**
+ * Helper Functions
+ */
+
+/**
+ * em($pixel[, $base])
+ * Calculates and returns an em value based on pixel input
+ *
+ * @param {Integer} $pixel
+ * @param {String} $context Optional px value to get the right font-size context
+ * @return {String} em value
+ *
+ */
+
+@function em($pixel, $context: $base-font-size--desktop) {
+    @return strip-unit($pixel) / strip-unit($context) * 1em;
+}
+
+/**
+ * rem($pixel[, $base])
+ * Calculates and returns a rem value based on pixel input
+ *
+ * @param {Integer} $pixel
+ * @return {String} rem value
+ *
+ */
+@function rem($pixel) {
+    @return strip-unit($pixel) / strip-unit($base-font-size--desktop) * 1rem;
+}
+
+/**
+ * strip-unit($val)
+ * Returns the number without unit. E.g. 30px -> 30
+ *
+ * @param  {String} $val
+ * @return {Number}
+ */
+
+@function strip-unit($val) {
+
+    // Borrowed from Zurb Foundation _globals.scss
+    @return $val / ($val * 0 + 1);
+}
+

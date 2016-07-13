@@ -1,0 +1,105 @@
+/**
+ * Commonly used Mixins (no CSS output)
+ */
+
+/**
+ * Very simple breakpoints
+ *
+ * Usage:
+ * @include breakpoint([from])
+ * @include breakpoint([from], [to])
+ *
+ * @param {Number} $min-width
+ * @param {Number} $max-width
+ */
+@mixin breakpoint ($min-width: false, $max-width: false) {
+    $query: "";
+
+    @if $min-width != false and $min-width != 0 {
+        $query: $query + "(min-width:" + $min-width + ")";
+
+        @if $max-width != false {
+            $query: $query + " and ";
+        }
+    }
+
+    @if $max-width != false {
+        $query: $query + "(max-width:" + $max-width + ")";
+    }
+
+    @media #{$query} {
+        @content;
+    }
+}
+
+/**
+ * Clearfix
+ */
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+/**
+ * Forces a composited layer to prevent rendering issues on animated elements
+ */
+@mixin composited-layer {
+    backface-visibility: hidden;
+}
+
+/**
+ * Visually hidden, but available for screen readers
+ */
+@mixin is-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+/**
+ * Apply a fixed ratio to an image (and its container)
+ *
+ * @param  {string} $ratio    The ratio the image should have
+ * @param  {string} $position The containers position property value
+ */
+@mixin ratio-image($ratio: 1/1, $position: relative) {
+    position: $position;
+
+    &:after {
+        display: block;
+        content: '';
+
+        // Handy if different ratios have to be applied and the initial
+        // one shouldn’t be set right away
+        @if ($ratio != false) {
+            padding-top: (100% / ($ratio));
+        }
+    }
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+}
+
+/**
+ * Sets a containers aspect ratio. Handy if a ratio changes
+ *
+ * @param  {string} $ratio    The ratio the image should have
+ */
+@mixin ratio-padding($ratio: 1/1) {
+    &:after {
+        padding-top: (100% / ($ratio));
+    }
+}

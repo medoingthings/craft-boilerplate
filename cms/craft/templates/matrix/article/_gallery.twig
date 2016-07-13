@@ -1,0 +1,5 @@
+{% set galleryItems = block.galleryMatrix.galleryTable %}
+
+{% include 'partials/gallery' with {
+    galleryItems: galleryItems
+} %}

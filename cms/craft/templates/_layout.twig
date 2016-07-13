@@ -1,0 +1,59 @@
+{#
+ # Layout template
+ # ---------------
+ #
+ # This template defines your site’s global layout. It can be
+ # “extended” by other templates to fill in the gaps.
+ #
+ # See Twig’s Template Inheritance documentation for more details:
+ # http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+ #}
+{% set area = craft.request.firstSegment ? craft.request.firstSegment : 'home' %}
+
+<!DOCTYPE html>
+<html class="no-js" data-site="{{ area }}" xmlns="http://www.w3.org/1999/xhtml" lang="{{ craft.locale }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        {# TODO: Replace with actual SEO fields #}
+        <meta name="robots" content="noindex, nofollow">
+
+        <title>{{ entry is defined ? entry.title : siteName }}</title>
+
+        {% set stylesPath = craft.bust.er('/dist/css/main.css') %}
+
+        <link rel="stylesheet" type="text/css" href="{{ stylesPath }}">
+
+        <script type="text/javascript" src="{{ craft.bust.er('/dist/js/predom.js') }}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="home" href="{{ siteUrl }}" />
+
+        {# Use http://realfavicongenerator.net to create this output #}
+        <link rel="apple-touch-icon" sizes="180x180" href="/dist/assets/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="/dist/assets/favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/dist/assets/favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/dist/assets/favicons/manifest.json">
+        <link rel="mask-icon" href="/dist/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/dist/assets/favicons/mstile-144x144.png">
+    </head>
+    <body id="body">
+
+        <div id="layout-transition" class="layout-transition__container">
+            {% include 'partials/header' %}
+
+            <main role="main" id="main" data-site="{{ area }}">
+                {% block content %}
+                    <p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+                    <p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+                {% endblock %}
+            </main>
+        </div>
+
+        <script type="text/javascript" src="{{ craft.bust.er('/dist/js/main.js') }}"></script>
+    </body>
+</html>

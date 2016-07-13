@@ -1,0 +1,29 @@
+{#
+ # Output errors as a list
+ #
+ # @param {string/array} errors Errors to display
+ #}
+{% macro errorList(errors) %}
+    {% if errors %}
+
+        {# If string, convert to array with one item #}
+        {% if errors is not iterable %}
+            {% set errors = [errors] %}
+        {% endif %}
+
+        <ul class="form__group__error__list">
+            {% for error in errors %}
+                <li class="form__group__error__item">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{#
+ # Output a CSS class if an error is given
+ #
+ # @param {string/array} errors Tells if errors are present
+ #}
+{% macro errorClass(errors) %}
+{{ errors|length ? ' form__group--has-errors' : '' }}
+{% endmacro %}

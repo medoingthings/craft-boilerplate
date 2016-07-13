@@ -1,0 +1,85 @@
+{#
+ # Outputs an image as a picture element where the image ratio can be
+ # defined per breakpoint.
+ #
+ # Example usage:
+ # {% include 'utilities/image-picture' with {
+ #     imageModel: backgroundImage,
+ #     imageSet: [
+ #         ['1200px', '16/9', [1200, 1600]],
+ #         ['1000px', '16/9', 1000],
+ #         ['800px', '4/3', 500],
+ #         ['default', '4/3', 600]
+ # %}
+ #}
+
+<picture>
+
+    {% set defaultImageUrl = '' %}
+    {% set altText = imageModel.title %}
+
+    <!--[if IE 9]><video style="display: none;"><![endif]-->
+
+    {# Iterate over each entry of the imageSet #}
+    {% for item in imageSet %}
+        {% set viewPortWidth = attribute(item, 0)|default(null) %}
+        {% set aspect = attribute(item, 1)|split('/')|default(null) %}
+        {% set aspectRatio = aspect[0] / aspect[1] %}
+        {% set srcUrls = [] %}
+        {% set width = attribute(item, 2) %}
+
+        {# Check if this imageSet is the one that should be used as the default image #}
+        {% set isDefaultImage = viewPortWidth == 'default' ? true : false %}
+
+        {# Images might have two widths (first normal, second retina 1.5x) – iterate over each of them #}
+        {% if width is not iterable %}
+            {% set width = [width] %}
+        {% endif %}
+
+        {% for width in width %}
+
+            {# Use the images height if no aspect ratio is given #}
+            {% set height = aspect ? (width / aspectRatio)|round : null %}
+
+            {% set transform = {
+                mode: 'crop',
+                width: width,
+                height: height,
+                position: 'center-center',
+                imageFormat: 'jpg'
+            } %}
+
+            {% set srcUrls = srcUrls|merge([imageModel.getUrl(transform)]) %}
+
+            {% if isDefaultImage and loop.first %}
+                {% set defaultImageUrl = imageModel.getUrl(transform) %}
+            {% endif %}
+
+        {% endfor %}
+
+        {% if srcUrls|length > 1 %}
+
+            {# If this set has a retina image width #}
+            {% set srcSet = srcUrls|join(', ') ~ ' 1.5x' %}
+        {% else %}
+
+            {# Or just flatten the array #}
+            {% set srcSet = srcUrls|join %}
+        {% endif %}
+
+        {% if isDefaultImage == false %}
+            <source data-srcset="{{ srcSet }}" media="(min-width: {{ viewPortWidth }})">
+        {% endif %}
+
+    {% endfor %}
+
+    <!--[if IE 9]></video><![endif]-->
+
+    {% if defaultImageUrl is not empty %}
+        <img data-srcset="{{ defaultImageUrl }}" class="lazyload" alt="{{ altText }}" media="(min-width: 0)">
+        <noscript>
+            <img src="{{ defaultImageUrl }}" alt="{{ altText }}">
+        </noscript>
+    {% endif %}
+
+</picture>

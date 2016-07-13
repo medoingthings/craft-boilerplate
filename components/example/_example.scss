@@ -1,0 +1,55 @@
+/**
+ * Example Component
+ * [Describe properly here]
+ */
+
+.example__container {
+    // Consistent naming of block elements is important.
+    // Use words like: container, wrapper, list, item, link, image etc.
+    // frequently and consistently
+    @include grid-container;
+}
+
+.example__sidebar {
+    @extend %base-text-type--1;
+    @include span(4 of 12);
+    text-transform: uppercase;
+    padding: rem($base-space--large-desktop);
+    background-color: $base-color-blue;
+}
+
+.example__content {
+    @include span(8 of 12 last);
+    padding: rem($base-space);
+    background-color: $base-color-dark-blue;
+}
+
+.example__list {
+    // Don’t use abbreviations like 'btn' or 'lst' – 'button' or 'list' is much
+    // clearer, especially for other developers
+}
+
+.example__item {
+    // Pevent the use of the !important statement
+
+    &._is-active {
+        // Prepend an underscore for modifier classes, so that they can be
+        // distinguished from component names. Use 'is-' to make it obvious
+        // that this is a state
+    }
+}
+
+.example__link {
+    &:link,
+    &:hover {
+        // Use nesting where appropriate, but never nest just for the sake of it!
+        // Don’t style html elements either:
+        // http://medoingthings.com/writing/2015/05/css-styling-html-elements-is-a-trap
+    }
+}
+
+@include breakpoint(500) {
+    .example__container {
+        // Put breakpoint related styles at the end of the file
+    }
+}
